@@ -1,5 +1,4 @@
-{% extends "layout.html" %} <!-- Molde, codigo que se repite, el codigo de layout se va a integrar o utlizar aqui -->
-<!-- Se integra al layout.html, GET para renderizar y POST para mandar el formulario -->
+{% extends "layout.html" %} <!--  -->
 {% block title %}
     Register
 {% endblock %}
@@ -19,30 +18,33 @@
         <div class="card-body">
             <form action="/registerCustomer" method="post">
                 <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="names" placeholder="Names" type="text"/>
+                    <input autocomplete="off" autofocus required class="form-control" name="cnames" placeholder="Names" type="text"/>
                 </div>
                 <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="surnames" placeholder="Surnames" type="text"/>
+                    <input autocomplete="off" autofocus required class="form-control" name="csurnames" placeholder="Surnames" type="text"/>
                 </div>
                 <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="sex" placeholder="Sex" type="text"/>
+                    <input autocomplete="off" autofocus required class="form-control" name="csex" placeholder="Sex" type="text"/>
                 </div>
                 <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="phonenumber1" placeholder="Phone Number 1" type="text"/>
+                    <input autocomplete="off" autofocus required class="form-control" name="cphonenumber1" placeholder="Phone Number 1" type="text"/>
                 </div>
                 <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="phonenumber2" placeholder="Phone Number 2" type="text"/>
+                    <input autocomplete="off" autofocus required class="form-control" name="cphonenumber2" placeholder="Phone Number 2" type="text"/>
                 </div>
                 <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="username" placeholder="Username" type="text"/>
+                  <input autocomplete="off" autofocus required class="form-control" name="cemail" placeholder="Email" type="text"/>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" required name="password" placeholder="Password" type="password"/>
+                    <input autocomplete="off" autofocus required class="form-control" name="cusername" placeholder="Username" type="text"/>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" required name="confirmation" placeholder="Confirm your password" type="password"/>
+                    <input class="form-control" required name="cpassword" placeholder="Password" type="password"/>
                 </div>
-                <button class="btn btn-primary" type="submit">Register</button>
+                <div class="form-group">
+                    <input class="form-control" required name="cconfirmpsswd" placeholder="Confirm your password" type="password"/>
+                </div>
+                <button class="btn btn-primary" type="button" id="btnRegisterCustomer">Register</button>
             </form>
         </div>
       </div>
@@ -61,36 +63,41 @@
           <div class="card-body">
             <form action="/registerOwner" method="post">
                 <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="names" placeholder="Names" type="text"/>
+                    <input autocomplete="off" autofocus required class="form-control" name="ownames" placeholder="Names" type="text"/>
                 </div>
                 <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="surnames" placeholder="Surnames" type="text"/>
+                    <input autocomplete="off" autofocus required class="form-control" name="owsurnames" placeholder="Surnames" type="text"/>
                 </div>
                 <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="sex" placeholder="Sex" type="text"/>
+                    <input autocomplete="off" autofocus required class="form-control" name="owsex" placeholder="Sex" type="text"/>
                 </div>
                 <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="phonenumber1" placeholder="Phone Number 1" type="text"/>
+                    <input autocomplete="off" autofocus required class="form-control" name="owphonenumber1" placeholder="Phone Number 1" type="text"/>
                 </div>
                 <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="phonenumber2" placeholder="Phone Number 2" type="text"/>
+                    <input autocomplete="off" autofocus required class="form-control" name="owphonenumber2" placeholder="Phone Number 2" type="text"/>
                 </div>
                 <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="username" placeholder="Username" type="text"/>
+                  <input autocomplete="off" autofocus required class="form-control" name="owemail" placeholder="Email" type="text"/>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" required name="password" placeholder="Password" type="password"/>
+                    <input autocomplete="off" autofocus required class="form-control" name="owusername" placeholder="Username" type="text"/>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" required name="confirmation" placeholder="Confirm your password" type="password"/>
+                    <input class="form-control" required name="owpassword" placeholder="Password" type="password"/>
                 </div>
-                <button class="btn btn-primary" type="submit">Register</button>
+                <div class="form-group">
+                    <input class="form-control" required name="owconfirmation" placeholder="Confirm your password" type="password"/>
+                </div>
+                <button class="btn btn-primary" type="button" id="btnRegisterOwner">Register</button>
             </form>
           </div>
         </div>
       </div>
 </div>
-
-
     
+{% endblock %}
+
+{% block scripts %}
+  <script src="../static/js/register.js"></script>
 {% endblock %}

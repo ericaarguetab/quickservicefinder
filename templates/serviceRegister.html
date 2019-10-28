@@ -17,8 +17,11 @@
                 <div class="form-group">
                     <input autocomplete="off" autofocus required class="form-control" name="servsubsector" placeholder="Subsector" type="text"/>
                 </div>
-                <select class="form-control">
-                    <option>Default select</option>
+                <select name="servsubsector" class="form-control">
+                    <option value="default" disabled selected>Select a subsector</option>
+                    {% for row in subsector %}
+                    <option value="{{row['idsubsector']}}">{{row["names"]}}</option>
+                    {% endfor %}
                   </select>
                 <div class="form-group">
                     <input autocomplete="off" autofocus required class="form-control" name="servsocialnetworks" placeholder="Social Network" type="text"/>

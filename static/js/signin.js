@@ -9,6 +9,10 @@ $(function(){
                 console.log(response);
                 if(response.responseCode == 200) {
                     $('#toastContent').html(response.responseMessage);
+                    window.location.replace('/newService')
+                }
+                else if(response.responseCode == 400){
+                    $('#toastContent').html(response.responseMessage);
                 }
                 else if(response.responseCode == 500){
                     $('#toastContent').html("Ha ocurrido un error: " + response.responseMessage);

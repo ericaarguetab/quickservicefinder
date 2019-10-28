@@ -108,7 +108,7 @@ def registerOwner():
     else:
         return render_template("register.html")
 
-@app.route('/newservice', methods=['GET', 'POST'])
+@app.route('/newService', methods=['GET', 'POST'])
 @login_required
 def newservice():
     if request.method == "POST":
@@ -126,6 +126,8 @@ def newservice():
         con = mysql.connect()
         cursor = con.cursor()
 
+        #cursor.callproc('subsector_GetSubsector',(idsubsector))
+        
         cursor.callproc('service_InsertService',(idowner, servicename, servaddress, servdescription)) #idsubsector
 
         data = cursor.fetchall()
@@ -150,11 +152,12 @@ def newservice():
 
 @app.route('/signIn', methods=['GET', 'POST'])
 def signIn():
+
     if request.method == "POST":
         user = request.form['username']
         password = request.form['password']
 
-        if not user and password:
+        if not user and not password:
             return jsonify({
                 'responseCode': 400,
                 'responseMessage': 'Enter the required fields!'
@@ -168,7 +171,10 @@ def signIn():
 
         if len(data) > 0:
             if check_password_hash(str(data[0][3]),password):
-                redirect('/newservice')
+                 return jsonify({
+                    'responseCode': 200,
+                    'responseMessage': "Usuario encontrado",
+                    })
             else:
                 return jsonify({
                     'responseCode': 500,
@@ -180,7 +186,10 @@ def signIn():
 
         if len(data) > 0:
             if check_password_hash(str(data[0][3]),password):
-                return redirect('/newservice')
+                 return jsonify({
+                    'responseCode': 200,
+                    'responseMessage': "Usuario encontrado",
+                    })
             else:
                 return jsonify({
                     'responseCode': 500,
@@ -191,8 +200,6 @@ def signIn():
                 'responseCode': 500,
                 'responseMessage': "Contraseña o usuario incorrecto",
                 })
-        
-        cursor.close()
-        con.close()
+
     else:
         return render_template("signIn.html")

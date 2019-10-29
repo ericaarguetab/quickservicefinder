@@ -80,14 +80,14 @@ END$$
 
 DELIMITER $$
 CREATE PROCEDURE service_InsertService(
-idowner INT,
+idownerservice INT,
 idsubsector INT,
 name VARCHAR(45),
 address VARCHAR(100),
 description VARCHAR(100))
 BEGIN
-INSERT INTO service (idowner, idsubsector, name, address, description)
-VALUES (idowner, idsubsector, name, address, description);
+INSERT INTO service (idownerservice, idsubsector, name, address, description)
+VALUES (idownerservice, idsubsector, name, address, description);
 END$$
 
 DELIMITER $$
@@ -136,7 +136,14 @@ DELIMITER $$
 CREATE PROCEDURE ownerservice_validateOwnerService (IN username VARCHAR(20))
 BEGIN
 	SELECT *
-	FROM user_ownerservice AS os
-	WHERE os.username = username;
+	FROM user_ownerservice AS uos
+	WHERE uos.username = username;
+END$$
+
+DELIMITER $$
+CREATE PROCEDURE subsector_GetSubsector ()
+BEGIN
+	SELECT * 
+	FROM subsector AS ss;
 END$$
 

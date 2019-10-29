@@ -1,0 +1,35 @@
+{% extends "layout.html" %} <!--  -->
+{% block title %}
+    Services
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+            <div class="row">
+                <div class="col-lg" style="margin-top: 140px;text-align:center;">
+                    <h1>Bienvenido a QuickServiceFinder!</h1>
+                    <h3>Tu buscador de servicios más rápido</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" style="margin-top: 50px;">
+                    <img src="../static/img/servicios.png" class="img-fluid">
+                </div>
+                <div class="col" style="font-family: Arial; margin-top: 80px;">
+                    <div style="text-align:center;">
+                        <h4>El lugar donde puedes dar a conocerte y encontrar el servicio que necesites! </h4>
+                        <a href="/registerCustomer" class="btn btn-primary btn-lg active" role="button">Regístrate ahora!</a> 
+                    </div>
+                   <div style="margin-top:35px; text-align:center;">
+                        <h4>Si ya tienes una cuenta con nosotros: </h4>
+                        <a href="/signIn" class="btn btn-dark btn-lg active" role="button">Inicia sesión</a>
+                   </div>
+                
+                    
+                </div>
+            </div>
+    </div>
+
+
+
+{% endblock %}

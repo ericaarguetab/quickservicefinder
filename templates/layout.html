@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="../static/css/loader.css"></link>
+    <link rel="stylesheet" href="../static/css/style.css"></link>
     <!-- Bootstrap CSS -->
     <link 
       rel="stylesheet" 
@@ -15,15 +16,15 @@
 
     <title>QuickServiceFinder:  {% block title %}{% endblock %}</title>
   </head>
-  <body aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+  <body aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px; background-color: rgb(240, 240, 240);">
+
+    {% if session.user_id %}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="/">QuickServiceFinder</a>
+      <a class="navbar-brand" href="#">QuickServiceFinder</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-    
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        {% if session.user_id %}
           {% if session.is_owner %}
           <ul class="navbar-nav mr-auto">
               <li class="nav-item">
@@ -33,22 +34,12 @@
           {% endif %}
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <form action="/logOut" method="POST"><button class="nav-link" type="submit">Log Out</button></form>
+              <form action="/logOut" method="POST"><button class="btn btn-light" type="submit">Log Out</button></form>
           </li>
         </ul>
-        {% else %}
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/signIn">Sign In</a>
-          </li>
-        </ul>
-        {% endif %}
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
       </div>
     </nav>
+    {% endif %}
     <main class="container p-5">
         {% block main %}{% endblock %}
     </main>

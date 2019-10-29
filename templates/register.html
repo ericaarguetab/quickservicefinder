@@ -4,97 +4,118 @@
 {% endblock %}
 
 {% block main %}
-<div class="accordion" id="accordionExample">
-    <div class="card">
-      <div class="card-header" id="headingOne">
-        <h2 class="mb-0">
-          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Register as a Customer
-          </button>
-        </h2>
-      </div>
-  
-      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-        <div class="card-body">
-            <form action="/registerCustomer" method="post">
-                <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="cnames" placeholder="Names" type="text"/>
-                </div>
-                <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="csurnames" placeholder="Surnames" type="text"/>
-                </div>
-                <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="csex" placeholder="Sex" type="text"/>
-                </div>
-                <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="cphonenumber1" placeholder="Phone Number 1" type="text"/>
-                </div>
-                <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="cphonenumber2" placeholder="Phone Number 2" type="text"/>
-                </div>
-                <div class="form-group">
-                  <input autocomplete="off" autofocus required class="form-control" name="cemail" placeholder="Email" type="text"/>
-                </div>
-                <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="cusername" placeholder="Username" type="text"/>
-                </div>
-                <div class="form-group">
-                    <input class="form-control" required name="cpassword" placeholder="Password" type="password"/>
-                </div>
-                <div class="form-group">
-                    <input class="form-control" required name="cconfirmpsswd" placeholder="Confirm your password" type="password"/>
-                </div>
-                <button class="btn btn-primary" type="button" id="btnRegisterCustomer">Register</button>
-            </form>
-        </div>
-      </div>
-    </div>
 
-    <div class="card">
-        <div class="card-header" id="headingTwo">
-          <h2 class="mb-0">
-            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-              Register as a Owner Service
-            </button>
-          </h2>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                  <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        ¿Buscas un servicio?
+                      </button>
+                    </h2>
+                  </div>
+              
+                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <form action="/registerCustomer" method="post">
+                            <div class="form-group">
+                                <input autocomplete="off" autofocus required class="form-control" name="cnames" placeholder="Nombres" type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <input autocomplete="off" autofocus required class="form-control" name="csurnames" placeholder="Apellidos" type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <input autocomplete="off" autofocus required class="form-control" name="csex" placeholder="Sexo" type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <input autocomplete="off" autofocus required class="form-control" name="cphonenumber1" placeholder="Número de teléfono 1" type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <input autocomplete="off" autofocus required class="form-control" name="cphonenumber2" placeholder="Número de teléfono 2" type="text"/>
+                            </div>
+                            <div class="form-group">
+                              <input autocomplete="off" autofocus required class="form-control" name="cemail" placeholder="Correo electrónico" type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <input autocomplete="off" autofocus required class="form-control" name="cusername" placeholder="Usuario" type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" required name="cpassword" placeholder="Contraseña" type="password"/>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" required name="cconfirmpsswd" placeholder="Confirma tu contraseña" type="password"/>
+                            </div>
+                            <div style="text-align: center;">
+                              <button class="btn btn-primary active" type="button" id="btnRegisterCustomer">Registrar como Cliente</button>
+                          </div>
+                        </form>
+                    </div>
+                  </div>
+                </div>
+            
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                      <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                          ¿Quieres postular un servicio?
+                        </button>
+                      </h2>
+                    </div>
+                
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                      <div class="card-body">
+                        <form action="/registerOwner" method="post">
+                            <div class="form-group">
+                                <input autocomplete="off" autofocus required class="form-control" name="ownames" placeholder="Nombres" type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <input autocomplete="off" autofocus required class="form-control" name="owsurnames" placeholder="Apellidos" type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <input autocomplete="off" autofocus required class="form-control" name="owsex" placeholder="Sexo" type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <input autocomplete="off" autofocus required class="form-control" name="owphonenumber1" placeholder="Número de teléfono 1" type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <input autocomplete="off" autofocus required class="form-control" name="owphonenumber2" placeholder="Número de teléfono 2" type="text"/>
+                            </div>
+                            <div class="form-group">
+                              <input autocomplete="off" autofocus required class="form-control" name="owemail" placeholder="Correo electrónico" type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <input autocomplete="off" autofocus required class="form-control" name="owusername" placeholder="Usuario" type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" required name="owpassword" placeholder="Contraseña" type="password"/>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" required name="owconfirmation" placeholder="Confirma tu contraseña" type="password"/>
+                            </div>
+                            <div style="text-align: center;">
+                              <button class="btn btn-primary active" type="button" id="btnRegisterOwner">Registrar como Dueño de negocio</button>
+                            </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+            </div>
         </div>
-    
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-          <div class="card-body">
-            <form action="/registerOwner" method="post">
-                <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="ownames" placeholder="Names" type="text"/>
-                </div>
-                <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="owsurnames" placeholder="Surnames" type="text"/>
-                </div>
-                <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="owsex" placeholder="Sex" type="text"/>
-                </div>
-                <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="owphonenumber1" placeholder="Phone Number 1" type="text"/>
-                </div>
-                <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="owphonenumber2" placeholder="Phone Number 2" type="text"/>
-                </div>
-                <div class="form-group">
-                  <input autocomplete="off" autofocus required class="form-control" name="owemail" placeholder="Email" type="text"/>
-                </div>
-                <div class="form-group">
-                    <input autocomplete="off" autofocus required class="form-control" name="owusername" placeholder="Username" type="text"/>
-                </div>
-                <div class="form-group">
-                    <input class="form-control" required name="owpassword" placeholder="Password" type="password"/>
-                </div>
-                <div class="form-group">
-                    <input class="form-control" required name="owconfirmation" placeholder="Confirm your password" type="password"/>
-                </div>
-                <button class="btn btn-primary" type="button" id="btnRegisterOwner">Register</button>
-            </form>
-          </div>
+        <div class="col" style="text-align:center;">
+            <div class="" style="margin-top: 140px;">
+                <h2>Regístrate</h2>
+            </div>
+            <div class="col" style="margin-top: 50px; width:100%; height:100%">
+                <img src="../static/img/register.png" class="img-fluid" alt="Responsive image">
+            </div>
         </div>
-      </div>
+    </div>
 </div>
+
+
     
 {% endblock %}
 

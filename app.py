@@ -19,7 +19,7 @@ mysql.init_app(app)
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template("home.html")
 
 @app.route('/registerCustomer', methods=['GET', 'POST'])
 def registerCustomer():
@@ -223,3 +223,21 @@ def logOut():
     session.pop('user_name', None)
     session.pop('is_owner', None)
     return redirect('/signIn')
+
+@app.route('/listServices')
+def listServices():
+    con = mysql.connect()
+    cursor = con.cursor()
+
+    cursor.callproc('subsector_GetSubsector')
+    subsector = cursor.fetchall()
+
+    subsector_dict = []
+    for sub in subsector:
+        sub_dict = {
+            'id': sub[0],
+            'sector': sub[1],
+            'name': sub[2]}
+    subsector_dict.append(sub_dict)
+
+    return jsonify(subsector_dict)

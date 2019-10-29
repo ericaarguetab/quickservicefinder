@@ -55,7 +55,7 @@ DECLARE id_customer INT;
 INSERT INTO customer (names, surnames, sex, phonenumber1, phonenumber2)
 VALUES (names, surnames, sex, phonenumber1, phonenumber2);
 SET id_customer = LAST_INSERT_ID();
-INSERT INTO user_customer (idcostumer, username, password, email)
+INSERT INTO user_customer (idcustomer, username, password, email)
 VALUES (id_customer, username, password, email);
 END$$
 
@@ -124,4 +124,19 @@ INSERT INTO valoration (idservice, iduser_customer, comment, rate)
 VALUES (idservice, iduser_customer, comment, rate);
 END$$
 
+DELIMITER $$
+CREATE PROCEDURE customer_validateCustomer (IN username VARCHAR(20))
+BEGIN
+	SELECT *
+	FROM user_customer AS uc
+	WHERE uc.username = username;
+END$$
+
+DELIMITER $$
+CREATE PROCEDURE ownerservice_validateOwnerService (IN username VARCHAR(20))
+BEGIN
+	SELECT *
+	FROM user_ownerservice AS os
+	WHERE os.username = username;
+END$$
 

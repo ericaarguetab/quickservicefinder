@@ -2,9 +2,11 @@ from flask import Flask, flash, redirect, render_template, request, session, jso
 from flaskext.mysql import MySQL
 from flask_session import Session
 from werkzeug.security import generate_password_hash, check_password_hash
-from helpers import login_required
+from helpers import login_required, user_isowner
 
 app = Flask(__name__)
+	
+app.secret_key = 'QSFEMAB'
 
 mysql = MySQL()
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
@@ -110,14 +112,16 @@ def registerOwner():
 
 @app.route('/newService', methods=['GET', 'POST'])
 @login_required
-def newservice():
+@user_isowner
+def newService():
     if request.method == "POST":
+        idowner = session["user_id"]
         servicename = request.form['servicename']
         servaddress = request.form['servaddress']
         servdescription = request.form['servdescription']
-        idowner = session["user_id"]
+        subsector = request.form['servsubsector']
 
-        if not servicename and servaddress and servdescription:
+        if not servicename and not servaddress and not servdescription:
             return jsonify({
                 'responseCode': 400,
                 'responseMessage': 'Enter the required fields!'
@@ -125,11 +129,8 @@ def newservice():
 
         con = mysql.connect()
         cursor = con.cursor()
-
-        #cursor.callproc('subsector_GetSubsector',(idsubsector))
         
-        cursor.callproc('service_InsertService',(idowner, servicename, servaddress, servdescription)) #idsubsector
-
+        cursor.callproc('service_InsertService',(idowner, subsector, servicename, servaddress, servdescription))
         data = cursor.fetchall()
 
         if len(data) is 0:
@@ -148,7 +149,13 @@ def newservice():
         con.close()
       
     else:
-        return render_template("serviceRegister.html")
+        con = mysql.connect()
+        cursor = con.cursor()
+
+        cursor.callproc('subsector_GetSubsector')
+        result = cursor.fetchall() 
+
+        return render_template("serviceRegister.html", result=result)
 
 @app.route('/signIn', methods=['GET', 'POST'])
 def signIn():
@@ -170,8 +177,11 @@ def signIn():
         data = cursor.fetchall()
 
         if len(data) > 0:
-            if check_password_hash(str(data[0][1]),password):
-                 return jsonify({
+            if check_password_hash(str(data[0][3]),password):
+                session['user_id'] = data[0][0]
+                session['user_name'] = data[0][2]
+                session['is_owner'] = False
+                return jsonify({
                     'responseCode': 200,
                     'responseMessage': "Usuario encontrado",
                     })
@@ -185,8 +195,11 @@ def signIn():
         data = cursor.fetchall()
 
         if len(data) > 0:
-            if check_password_hash(str(data[0][1]),password):
-                 return jsonify({
+            if check_password_hash(str(data[0][3]),password):
+                session['user_id'] = data[0][0]
+                session['user_name'] = data[0][2]
+                session['is_owner'] = True
+                return jsonify({
                     'responseCode': 200,
                     'responseMessage': "Usuario encontrado",
                     })
@@ -203,3 +216,10 @@ def signIn():
 
     else:
         return render_template("signIn.html")
+
+@app.route('/logOut', methods=['POST'])
+def logOut():
+    session.pop('user_id', None)
+    session.pop('user_name', None)
+    session.pop('is_owner', None)
+    return redirect('/signIn')

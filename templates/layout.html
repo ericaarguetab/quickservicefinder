@@ -24,9 +24,16 @@
     
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         {% if session.user_id %}
+          {% if session.is_owner %}
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/newService">Service</a>
+              </li>
+            </ul>
+          {% endif %}
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/newservice">Service</a>
+            <form action="/logOut" method="POST"><button class="nav-link" type="submit">Log Out</button></form>
           </li>
         </ul>
         {% else %}
@@ -35,7 +42,7 @@
             <a class="nav-link" href="/signIn">Sign In</a>
           </li>
         </ul>
-        {% endif%}
+        {% endif %}
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>

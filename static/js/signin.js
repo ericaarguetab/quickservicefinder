@@ -9,7 +9,7 @@ $(function(){
                 console.log(response);
                 if(response.responseCode == 200) {
                     $('#toastContent').html(response.responseMessage);
-                    window.location.replace('/newService')
+                    window.location.href = '/newService'
                 }
                 else if(response.responseCode == 400){
                     $('#toastContent').html(response.responseMessage);

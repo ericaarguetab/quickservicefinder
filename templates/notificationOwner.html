@@ -1,0 +1,32 @@
+{% extends "layout.html" %} <!--  -->
+{% block title %}
+    Notificaciones
+{% endblock %}
+
+{% block main %}
+    {% if result|length > 0 %}
+        {% for row in result %}
+        <div class="card">
+            <div class="card-header">
+            Servicio {{row[2]}}
+            </div>
+            <div class="card-body">
+            <h5 class="card-title">{{row[3]}}</h5>
+            <p class="card-text">Solicitado por: {{row[1]}}</p>
+            </div>
+        </div>
+        <br>
+        {% endfor %}
+    {% else %}
+        <div class="card">
+            <div class="card-header">
+            Lo sentimos!
+            </div>
+            <div class="card-body">
+            <h5 class="card-title">Aún no cuentas con notificaciones en este servicio</h5>
+            <p class="card-text"></p>
+            <a href="/ownerServices" class="btn btn-primary">Regresar</a>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

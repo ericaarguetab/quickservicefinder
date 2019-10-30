@@ -1,21 +1,72 @@
 {% extends "layout.html" %} <!--  -->
 {% block title %}
-    Services
+    Servicios
 {% endblock %}
 
 {% block main %}
+    <div style="margin-bottom: 20px;">
+        <h3>Solicita el servicio que necesites:</h3>
+    </div>
+    {% if result|length > 0 %}
+        {% for row in result %}
+        <div class="card">
+            <div class="card-header">
+            Ubicación: {{row[4]}}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{row[3]}}</h5>
+                <p class="card-text">{{row[5]}}</p>
+                <div style="text-align: center">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" >
+                            Solicitar servicio
+                    </button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Solicitar {{row[3]}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <div class="form-group" style="display: none;">
+                                        <input value= "{{row[0]}}" autocomplete="off" autofocus required class="form-control" name="idservice" type="text">{{row[0]}}</input>
+                                    </div>
+                                    <label for="msgtxtarea">Escribe tu mensaje para el dueño del negocio:</label>
+                                    <textarea class="form-control" id="msgtxtarea" rows="3" name="message"></textarea>
+                                </div>
+                            </form>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-primary active" id="btnSendMsg">Enviar mensaje</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
     <div class="card">
         <div class="card-header">
-        Featured
+        Servicios
         </div>
         <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <h5 class="card-title">No existen servicios</h5>
+        <p class="card-text"></p>
+        <a href="/listSubsectors" class="btn btn-primary">Regresar</a>
         </div>
     </div>
+    {% endif %}
 {% endblock %}
 
 {% block scripts %}
-  <script src="../static/js/registerService.js"></script>
+  <script src="../static/js/modalCustomer.js"></script>
 {% endblock %}

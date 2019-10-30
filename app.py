@@ -3,6 +3,7 @@ from flaskext.mysql import MySQL
 from flask_session import Session
 from werkzeug.security import generate_password_hash, check_password_hash
 from helpers import login_required, user_isowner
+from datetime import datetime
 
 app = Flask(__name__)
 	
@@ -184,6 +185,7 @@ def signIn():
                 return jsonify({
                     'responseCode': 200,
                     'responseMessage': "Usuario encontrado",
+                    'responseOwner': session['is_owner']
                     })
             else:
                 return jsonify({
@@ -202,6 +204,7 @@ def signIn():
                 return jsonify({
                     'responseCode': 200,
                     'responseMessage': "Usuario encontrado",
+                    'responseOwner': session['is_owner']
                     })
             else:
                 return jsonify({
@@ -224,13 +227,21 @@ def logOut():
     session.pop('is_owner', None)
     return redirect('/signIn')
 
-@app.route('/listServices')
-def listServices():
+@app.route('/getSubsector')
+def getSubsector():
     con = mysql.connect()
     cursor = con.cursor()
 
     cursor.callproc('subsector_GetSubsector')
     subsector = cursor.fetchall()
+
+    if not len(subsector) > 0:
+        return jsonify({
+            'responseCode': 500,
+            'responseMessage': str(subsector[0]),
+            })
+   
+    con.commit()
 
     subsector_dict = []
     for sub in subsector:
@@ -238,6 +249,100 @@ def listServices():
             'id': sub[0],
             'sector': sub[1],
             'name': sub[2]}
-    subsector_dict.append(sub_dict)
+        subsector_dict.append(sub_dict)
 
-    return jsonify(subsector_dict)
+    return jsonify({
+            'responseCode': 200,
+            'responseMessage': 'Datos obtenidos exitosamente',
+            'responseObject': subsector_dict
+        })
+
+@app.route('/listSubsectors')
+def listSubsectors():
+    con = mysql.connect()
+    cursor = con.cursor()
+
+    cursor.callproc('subsector_GetSubsector')
+    result = cursor.fetchall() 
+
+    return render_template("listSubsectors.html", result=result)
+
+@app.route('/listServices/<idsubsector>')
+def listServices(idsubsector):
+    con = mysql.connect()
+    cursor = con.cursor()
+
+    cursor.callproc('service_GetServiceBySubsector', [int(idsubsector)])
+    result = cursor.fetchall()
+    
+
+    return render_template("listServices.html", result=result)
+
+@app.route('/ownerServices')
+def ownerServices():
+    con = mysql.connect()
+    cursor = con.cursor()
+
+    user = session['user_id']
+
+    cursor.callproc('service_GetServiceByOwner', str(user))
+    result = cursor.fetchall()
+
+    return render_template("ownerServices.html", result=result)
+
+@app.route('/error')
+def error():
+     return render_template("error.html")
+
+@app.route('/modal', methods=['GET', 'POST'])
+def sendmsg():
+    if request.method == "POST":
+        customer = session['user_id']
+        service = request.form['idservice']
+        message = request.form['message']
+        isaccepted = None
+        date = datetime.now()
+        responsemsg = None
+
+        if not message:
+            return jsonify({
+                'responseCode': 400,
+                'responseMessage': 'Enter the required fields!'
+                })
+        
+        con = mysql.connect()
+        cursor = con.cursor()
+
+        cursor.callproc('notification_InsertNotification',(customer, service, [message], isaccepted, date, responsemsg))
+
+        data = cursor.fetchall()
+
+        if len(data) is 0:
+            con.commit()
+            return jsonify({
+                'responseCode': 200,
+                'responseMessage': 'Mensaje enviado',
+            })
+        else:
+            return jsonify({
+                'responseCode': 500,
+                'responseMessage': str(data[0]),
+                })
+        cursor.close()
+        con.close()
+
+    else:
+        return jsonify({
+                'responseCode': 500,
+                'responseMessage': 'No se puede realizar esta acción'
+                })
+
+@app.route('/notificationOwner/<idservice>')
+def notificationOwner(idservice):
+    con = mysql.connect()
+    cursor = con.cursor()
+
+    cursor.callproc('notification_GetPendingNotifications', [int(idservice)])
+    result = cursor.fetchall()
+    
+    return render_template("notificationOwner.html", result=result)

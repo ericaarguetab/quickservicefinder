@@ -147,3 +147,21 @@ BEGIN
 	FROM subsector AS ss;
 END$$
 
+DELIMITER $$
+CREATE PROCEDURE service_GetServiceBySubsector (IN idsubsector INT)
+
+BEGIN
+	SELECT * FROM service AS s
+	WHERE s.idsubsector = idsubsector;
+END$$
+
+DELIMITER $$
+CREATE PROCEDURE `service_GetServiceByOwner`(IN idownerservice INT)
+BEGIN
+	SELECT sub.names, s.name, s.address, s.description
+	FROM service AS s
+    INNER JOIN subsector AS sub
+    ON s.idsubsector = sub.idsubsector
+    WHERE s.idownerservice = idownerservice;
+END$$
+

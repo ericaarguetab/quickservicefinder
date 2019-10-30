@@ -7,9 +7,13 @@ $(function(){
             type: 'POST',
             success: function(response){
                 console.log(response);
-                if(response.responseCode == 200) {
+                if(response.responseCode == 200 && response.responseOwner == true) {
                     $('#toastContent').html(response.responseMessage);
-                    window.location.href = '/newService'
+                    window.location.href = '/ownerServices'
+                }
+                else if(response.responseCode == 200 && response.responseOwner == false){
+                    $('#toastContent').html(response.responseMessage);
+                    window.location.href = '/listSubsectors'
                 }
                 else if(response.responseCode == 400){
                     $('#toastContent').html(response.responseMessage);

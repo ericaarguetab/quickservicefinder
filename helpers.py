@@ -18,7 +18,7 @@ def user_isowner(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if session.get("is_owner") is False:
-            return redirect("/")
+            return redirect("/error")
         return f(*args, **kwargs)
     return decorated_function
 

@@ -1,0 +1,27 @@
+body{
+    font-family: 'Titillium Web', sans-serif;
+}
+.navbar {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px 0 rgba(0 , 0, 0, .05);
+    min-height: 100px;
+}
+
+.nav-link { color: #1a1a1a; }
+.nav-link:hover { color: #1a1a1a; }
+.logo-brand {
+    min-width: 160px;
+    max-width: 140px;
+}
+
+.navbar-toggler { font-size: 40px; }
+.navbar-toggler:focus { outline: none; }
+
+#hero {
+    /*background-image: url('http://www.escuelamanagement.eu/wp-content/uploads/Estrategias-de-ventas-1080x675.jpg');*/
+    background-image: url('https://images.pexels.com/photos/7055/desk-computer-imac-home.jpg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260');
+    background-size: cover;
+    padding-top: 90px;
+    min-height: 700px;
+    color: #ffffff;
+}

@@ -1,6 +1,22 @@
 body{
     font-family: 'Titillium Web', sans-serif;
 }
+
+h1 { font-size: 66px; font-weight: 600; line-height: 88px; }
+
+p{
+    font-size: 18px;
+    color: #999999;
+    line-height: 1.8;
+    margin-bottom: 0;
+}
+
+.bg-dark { background-color: #1a1a1a !important ; }
+
+.topmargin-xs { margin-top: 15px }
+.topmargin-sm { margin-top: 30px }
+.topmargin-lg { margin-top: 60px }
+
 .navbar {
     background-color: #ffffff;
     box-shadow: 0 2px 4px 0 rgba(0 , 0, 0, .05);
@@ -24,4 +40,13 @@ body{
     padding-top: 90px;
     min-height: 700px;
     color: #ffffff;
+}
+#hero p{
+    color: #ffffff;
+}
+
+.content-center{
+    max-width: 800px;
+    margin: 0 auto 60px auto;
+    text-align: center;
 }

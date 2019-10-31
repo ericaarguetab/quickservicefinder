@@ -4,9 +4,16 @@
 {% endblock %}
 
 {% block main %}
-    <div style="margin-bottom: 20px;">
-        <h3>Solicita el servicio que necesites:</h3>
+
+    <div class="row" style="margin-bottom: 20px;">
+            <div class="col">
+                <h3>Solicita el servicio que necesites:</h3>
+            </div>
+            <div class="col">
+                    <a href="/listSubsectors" class="btn  btn-outline-primary">Regresar</a>
+            </div>
     </div>
+
     {% if result|length > 0 %}
         {% for row in result %}
         <div class="card">
@@ -17,7 +24,7 @@
                 <h5 class="card-title">{{row[3]}}</h5>
                 <p class="card-text">{{row[5]}}</p>
                 <div style="text-align: center">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" >
+                    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#myModal" >
                             Solicitar servicio
                     </button>
                 </div>

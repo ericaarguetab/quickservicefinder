@@ -1,10 +1,10 @@
   $(function(){
-    $('.btnSendMsg').click(function(){
+    $('.btnSendRequest').click(function(){
         var boton = $(this);
-
+ 
         showElem('loader');
         $.ajax({
-            url: '/modal',
+            url: '/modalRequest',
             data: $(boton).parents('.modal').find('form').serialize(),
             type: 'POST',
             success: function(response){

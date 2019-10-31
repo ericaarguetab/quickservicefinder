@@ -4,33 +4,44 @@
 {% endblock %}
 
 {% block main %}
-        <div>
-            <h3>Crea un servicio</h3>
-            <br>
+    <div class="container">
+        <div class="row">
+            <div class="col" style="margin-top: 50px;">
+                    <img src="../static/img/registrar.png" class="img-fluid" alt="Responsive image">
+            </div>
+            <div class="col" style="margin-top: 120px;">
+                <div>
+                    <h3>Crea un servicio</h3>
+                    <br>
+                </div>
+                <form action="/newService" method="post">
+                    <div class="form-group">
+                        <input autocomplete="off" autofocus required class="form-control" name="servicename" placeholder="Nombre" type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <input autocomplete="off" autofocus required class="form-control" name="servaddress" placeholder="Dirección" type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <input autocomplete="off" autofocus required class="form-control" name="servdescription" placeholder="Descripción" type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <select name="servsubsector" id="servsubsector" class="form-control">
+                            <option value="default" disabled selected>Seleccione una categoría</option>
+                            {% for row in result %}
+                            <option value="{{row[0]}}">{{row[2]}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input autocomplete="off" autofocus required class="form-control" name="servsocialnetworks" placeholder="Red social" type="text"/>
+                    </div>
+                    <div style="text-align: center;">
+                        <button class="btn btn-primary" type="button" id="btnRegisterService">Crear</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <form action="/newService" method="post">
-            <div class="form-group">
-                <input autocomplete="off" autofocus required class="form-control" name="servicename" placeholder="Nombre" type="text"/>
-            </div>
-            <div class="form-group">
-                <input autocomplete="off" autofocus required class="form-control" name="servaddress" placeholder="Dirección" type="text"/>
-            </div>
-            <div class="form-group">
-                <input autocomplete="off" autofocus required class="form-control" name="servdescription" placeholder="Descripción" type="text"/>
-            </div>
-            <div class="form-group">
-                <select name="servsubsector" id="servsubsector" class="form-control">
-                    <option value="default" disabled selected>Seleccione una categoría</option>
-                    {% for row in result %}
-                    <option value="{{row[0]}}">{{row[2]}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="form-group">
-                <input autocomplete="off" autofocus required class="form-control" name="servsocialnetworks" placeholder="Red social" type="text"/>
-            </div>
-            <button class="btn btn-primary" type="button" id="btnRegisterService">Crear</button>
-        </form>
+    </div>
     
 {% endblock %}
 

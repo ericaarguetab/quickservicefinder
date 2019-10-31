@@ -4,34 +4,46 @@
 {% endblock %}
 
 {% block main %}
-    <div>
-        <h3>Tus servicios</h3>
-        <br>
-    </div>
-    {% if result|length > 0 %}
-        {% for row in result %}
-        <div class="card">
-            <div class="card-header">
-            Categoría: {{row[1]}}
-            </div>
-            <div class="card-body">
-            <h5 class="card-title">{{row[2]}}</h5>
-            <p class="card-text">{{row[4]}}</p>
-            <a href="/notificationOwner/{{row[0]}}" class="btn btn-primary">Ver Notificaciones</a>
+        <div class="container" style="margin-bottom: 10px;">
+            <div class="row">
+                <div class="col-sm-2">
+                        <img src="../static/img/servicio.png" class="img-fluid" alt="Responsive image" width="100px">
+                </div>
+                <div class="col-lg-10">
+                    <h3>Tus servicios:</h3>
+                    <p>Puedes visualizar notificaciones de los clientes por cada servicio que creaste.</p>
+                </div>
             </div>
         </div>
-        <br>
-        {% endfor %}
-    {% else %}
-    <div class="card">
-            <div class="card-header">
-            Tus servicios
-            </div>
-            <div class="card-body">
-            <h5 class="card-title">Aún no cuentas con servicios!</h5>
-            <p class="card-text">Haz clic en el botón y agrega los servicios que quieras.</p>
-            <a href="/serviceRegister" class="btn btn-primary">Crear servicio</a>
-            </div>
+        <div class="card-columns" style="margin-bottom: 10px;">
+               
+            {% if result|length > 0 %}
+                {% for row in result %}
+                <div class="card">
+                    <div class="card-header">
+                    Categoría: {{row[1]}}
+                    </div>
+                    <div class="card-body">
+                    <h5 class="card-title">{{row[2]}}</h5>
+                    <p class="card-text">{{row[4]}}</p>
+                    <a href="/notificationOwner/{{row[0]}}" class="btn btn-primary">Ver Notificaciones</a>
+                    </div>
+                </div>
+                <br>
+                {% endfor %}
+            {% else %}
+            <div class="card">
+                    <div class="card-header">
+                    Tus servicios
+                    </div>
+                    <div class="card-body">
+                    <h5 class="card-title">Aún no cuentas con servicios!</h5>
+                    <p class="card-text">Haz clic en el botón y agrega los servicios que quieras.</p>
+                    <a href="/serviceRegister" class="btn btn-primary">Crear servicio</a>
+                    </div>
+                </div>
+            {% endif %}
+                   
         </div>
-    {% endif %}
+    
 {% endblock %}

@@ -33,6 +33,9 @@
             <li class="nav-item">
               <a class="nav-link" href="/newService">Crear servicio</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/notifications">Solicitudes</a>
+              </li>
           {% else %}
             <li class="nav-item">
               <a class="nav-link" href="/listSubsectors">Servicios</a>
@@ -49,7 +52,7 @@
         {% block main %}{% endblock %}
     </main>
 
-    <div class="toast" data-autohide="true" data-delay="2500">
+    <div class="toast" data-autohide="true" data-delay="3000">
         <div class="toast-header">
           <strong class="mr-auto">QuickServiceFinder</strong>
           <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">

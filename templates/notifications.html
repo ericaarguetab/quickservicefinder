@@ -1,0 +1,83 @@
+{% extends "layout.html" %} <!--  -->
+{% block title %}
+    Solicitudes
+{% endblock %}
+
+{% block main %}
+
+    <div class="row" style="margin-bottom: 20px;">
+            <div class="col">
+                <h3>Solicitudes:</h3>
+            </div>
+    </div>
+
+    <ul class="nav nav-pills nav-justified" id="NotificationsTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="accepted-tab" data-toggle="tab" href="#accepted" role="tab" aria-controls="home" aria-selected="true">Aceptadas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="denied-tab" data-toggle="tab" href="#denied" role="tab" aria-controls="profile" aria-selected="false">Rechazadas</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="NotificationTabContent">
+            <div class="tab-pane fade show active" id="accepted" role="tabpanel" aria-labelledby="accepted-tab">
+                <div style="margin-top: 20px;">
+                        {% if accept|length > 0 %}
+                            {% for row in accept %}
+                                <div class="card">
+                                    <div class="card-header">
+                                    {{row[1]}}
+                                    </div>
+                                    <div class="card-body">
+                                    <h5 class="card-title">Mensaje: {{row[3]}}</h5>
+                                    <p class="card-text">Solicitado por: {{row[2]}}</p>
+                                    </div>
+                                </div>
+                                <br>
+                            {% endfor %}
+                        {% else %}
+                            <div class="card">
+                                <div class="card-header">
+                                Lo sentimos!
+                                </div>
+                                <div class="card-body">
+                                <h5 class="card-title">Aún no cuentas con notificaciones en este servicio</h5>
+                                <p class="card-text"></p>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+            </div>
+            <div class="tab-pane fade" id="denied" role="tabpanel" aria-labelledby="denied-tab">
+                    <div style="margin-top: 20px;">
+                        {% if deny|length > 0 %}
+                            {% for fila in deny %}
+                                <div class="card">
+                                    <div class="card-header">
+                                    {{fila[1]}}
+                                    </div>
+                                    <div class="card-body">
+                                    <h5 class="card-title">Mensaje: {{fila[3]}}</h5>
+                                    <p class="card-text">Solicitado por: {{fila[2]}}</p>
+                                    </div>
+                                </div>
+                                <br>
+                            {% endfor %}
+                        {% else %}
+                            <div class="card">
+                                <div class="card-header">
+                                Lo sentimos!
+                                </div>
+                                <div class="card-body">
+                                <h5 class="card-title">Aún no cuentas con notificaciones en este servicio</h5>
+                                <p class="card-text"></p>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+          </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="../static/js/modalOwner.js"></script>
+{% endblock %}

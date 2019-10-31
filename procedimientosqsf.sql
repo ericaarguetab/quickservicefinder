@@ -165,3 +165,30 @@ BEGIN
     WHERE s.idownerservice = idownerservice;
 END$$
 
+DELIMITER $$
+CREATE PROCEDURE notification_UpdateRequest (
+IN idnotification INT,
+IN isAccepted INT,
+IN ResponseMessage VARCHAR(150)
+)
+BEGIN
+	UPDATE notification AS n
+	SET n.isAccepted = isAccepted, n.ResponseMessage = ResponseMessage
+	WHERE n.idNotification = idnotification;
+END$$
+
+DELIMITER $$
+CREATE PROCEDURE `notification_GetDeniedNotifications`(IN idservice INT)
+BEGIN
+	SELECT n.idNotification, s.name, c.names, n.Message, n.isAccepted, n.Date, n.ResponseMessage, n.iduser_customer, n.idservice
+    FROM notification AS n
+    INNER JOIN user_customer AS uc ON
+    uc.iduser_customer = n.iduser_customer
+    INNER JOIN customer AS c ON
+    uc.idcustomer = c.idcustomer
+    INNER JOIN service AS s ON
+    n.idservice = s.idservice
+    WHERE n.isAccepted = 0 AND n.idservice = idservice;
+END$$
+
+

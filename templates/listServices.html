@@ -24,7 +24,7 @@
                 <h5 class="card-title">{{row[3]}}</h5>
                 <p class="card-text">{{row[5]}}</p>
                 <div style="text-align: center">
-                    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#myModal" >
+                    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modalNotification{{row[0]}}" >
                             Solicitar servicio
                     </button>
                 </div>
@@ -32,7 +32,7 @@
         </div>
         <br>
         <!-- Modal -->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="modalNotification{{row[0]}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -53,8 +53,8 @@
                             </form>
                     </div>
                     <div class="modal-footer">
-                    <button type="button" class="btn btn-primary active" id="btnSendMsg">Enviar mensaje</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary active btnSendMsg">Enviar mensaje</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     </div>
                 </div>
                 </div>
@@ -68,7 +68,6 @@
         <div class="card-body">
         <h5 class="card-title">No existen servicios</h5>
         <p class="card-text"></p>
-        <a href="/listSubsectors" class="btn btn-primary">Regresar</a>
         </div>
     </div>
     {% endif %}

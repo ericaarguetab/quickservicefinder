@@ -337,6 +337,43 @@ def sendmsg():
                 'responseMessage': 'No se puede realizar esta acción'
                 })
 
+@app.route('/modalRequest', methods=['GET', 'POST'])
+def sendrequest():
+    if request.method == "POST":
+        if 'requestCheck' in request.form:
+            requestCheck = 1
+        else:
+            requestCheck = 0
+
+        service = request.form['idnotification']
+        message = request.form['message']
+
+        con = mysql.connect()
+        cursor = con.cursor()        
+
+        cursor.callproc('notification_UpdateRequest',(service, requestCheck, [message]))
+        data = cursor.fetchall()
+
+        if len(data) is 0:
+            con.commit()
+            return jsonify({
+                'responseCode': 200,
+                'responseMessage': 'Mensaje enviado',
+            })
+        else:
+            return jsonify({
+                'responseCode': 500,
+                'responseMessage': str(data[0]),
+                })
+        cursor.close()
+        con.close()
+
+    else:
+        return jsonify({
+                'responseCode': 500,
+                'responseMessage': 'No se puede realizar esta acción'
+                })
+
 @app.route('/notificationOwner/<idservice>')
 def notificationOwner(idservice):
     con = mysql.connect()
@@ -346,3 +383,16 @@ def notificationOwner(idservice):
     result = cursor.fetchall()
     
     return render_template("notificationOwner.html", result=result)
+
+@app.route('/notifications')
+def notifications():
+    con = mysql.connect()
+    cursor = con.cursor()
+
+    cursor.callproc('notification_GetAcceptedNotifications')
+    accept = cursor.fetchall()
+
+    cursor.callproc('notification_GetDeniedNotifications')
+    deny = cursor.fetchall()
+    
+    return render_template("notifications.html", accept=accept, deny=deny)

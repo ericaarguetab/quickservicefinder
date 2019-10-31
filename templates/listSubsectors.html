@@ -7,17 +7,21 @@
     <div style="margin-bottom: 20px;">
         <h3>Encuentra el servicio que necesitas en alguna de nuestras categorías:</h3>
     </div>
-    {% for row in result %}
-    <div class="card">
-        <div class="card-header">
-        Categoría {{row[0]}}
+    
+    <div class="card-columns">
+        {% for row in result %}
+        <div class="card">
+            <div class="card-header">
+            Categoría {{row[0]}}
+            </div>
+            <div class="card-body">
+            <h5 class="card-title">{{row[2]}}</h5>
+            <p class="card-text"></p>
+            <a href="/listServices/{{row[0]}}" class="btn btn-outline-info">Ver Servicios</a>
+            </div>
         </div>
-        <div class="card-body">
-        <h5 class="card-title">{{row[2]}}</h5>
-        <p class="card-text"></p>
-        <a href="/listServices/{{row[0]}}" class="btn btn-primary">Ver Servicios</a>
-        </div>
+        {% endfor %}
     </div>
     <br>
-    {% endfor %}
+    
 {% endblock %}

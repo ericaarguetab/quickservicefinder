@@ -7,10 +7,11 @@
 
     <div class="row" style="margin-bottom: 20px;">
             <div class="col">
-                <h3>Notificaciones:</h3>
+                <h3>Notificaciones pendientes:</h3>
             </div>
             <div class="col">
                     <a href="/ownerServices" class="btn  btn-outline-primary">Regresar</a>
+                    <a href="javascript:location.reload()" class="btn btn btn-outline-warning">Actualizar</a>
             </div>
     </div>
     
@@ -23,9 +24,48 @@
             <div class="card-body">
             <h5 class="card-title">Mensaje: {{row[3]}}</h5>
             <p class="card-text">Solicitado por: {{row[2]}}</p>
+            <div style="text-align: center">
+                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modalRequest{{row[0]}}" >
+                        Responder
+                </button>
+            </div>
             </div>
         </div>
         <br>
+            <!-- Modal -->
+            <div class="modal fade" id="modalRequest{{row[0]}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Solicitud de servicio {{row[3]}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <div class="form-group" style="display: none;">
+                                        <input value= "{{row[0]}}" autocomplete="off" autofocus required class="form-control" name="idnotification" type="text">{{row[0]}}</input>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="msgtxtarea">Escribe tu mensaje para el cliente:</label>
+                                        <textarea class="form-control" id="msgtxtarea" rows="3" name="message"></textarea>
+                                    </div>
+                                    <div class="form-group form-check">
+                                        <input type="checkbox" class="form-check-input" id="requestCheck" name="requestCheck">
+                                        <label class="form-check-label" for="requestCheck">¿Acepta solicitud del cliente?</label>
+                                      </div>
+                                </div>
+                            </form>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-primary active btnSendRequest">Enviar respuesta</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+                </div>
+            </div>
         {% endfor %}
     {% else %}
         <div class="card">
@@ -35,8 +75,11 @@
             <div class="card-body">
             <h5 class="card-title">Aún no cuentas con notificaciones en este servicio</h5>
             <p class="card-text"></p>
-            <a href="/ownerServices" class="btn btn-primary">Regresar</a>
             </div>
         </div>
     {% endif %}
+{% endblock %}
+
+{% block scripts %}
+  <script src="../static/js/modalOwner.js"></script>
 {% endblock %}

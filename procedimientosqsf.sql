@@ -178,7 +178,7 @@ BEGIN
 END$$
 
 DELIMITER $$
-CREATE PROCEDURE `notification_GetDeniedNotifications`(IN idservice INT)
+CREATE PROCEDURE `notification_GetAcceptededNotifications`()
 BEGIN
 	SELECT n.idNotification, s.name, c.names, n.Message, n.isAccepted, n.Date, n.ResponseMessage, n.iduser_customer, n.idservice
     FROM notification AS n
@@ -188,7 +188,21 @@ BEGIN
     uc.idcustomer = c.idcustomer
     INNER JOIN service AS s ON
     n.idservice = s.idservice
-    WHERE n.isAccepted = 0 AND n.idservice = idservice;
+    WHERE n.isAccepted = 1;
+END$$
+
+DELIMITER $$
+CREATE PROCEDURE `notification_GetDeniedNotifications`()
+BEGIN
+	SELECT n.idNotification, s.name, c.names, n.Message, n.isAccepted, n.Date, n.ResponseMessage, n.iduser_customer, n.idservice
+    FROM notification AS n
+    INNER JOIN user_customer AS uc ON
+    uc.iduser_customer = n.iduser_customer
+    INNER JOIN customer AS c ON
+    uc.idcustomer = c.idcustomer
+    INNER JOIN service AS s ON
+    n.idservice = s.idservice
+    WHERE n.isAccepted = 0;
 END$$
 
 

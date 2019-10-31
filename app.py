@@ -36,10 +36,15 @@ def registerCustomer():
         password = request.form['cpassword']
         confirmpsswd = request.form['cconfirmpsswd'] 
 
-        if not name and not surnames and not sex and not phonenumber1 and not email and not username and not password and not confirmpsswd:
+        if not name or not surnames or not sex or not phonenumber1 or not email or not username or not password or not confirmpsswd:
             return jsonify({
                 'responseCode': 400,
-                'responseMessage': 'Enter the required fields!'
+                'responseMessage': 'Llenar campos requeridos!'
+                })
+        elif password != confirmpsswd:
+            return jsonify({
+                'responseCode': 400,
+                'responseMessage': 'Las contraseñas no coinciden.'
                 })
 
         con = mysql.connect()
@@ -81,10 +86,15 @@ def registerOwner():
         password = request.form['owpassword']
         confirmpsswd = request.form['owconfirmation'] 
 
-        if not names and not surnames and not sex and not phonenumber1 and not email and not username and not password and not confirmpsswd:
+        if not names or not surnames or not sex or not phonenumber1 or not email or not username or not password or not confirmpsswd:
             return jsonify({
                 'responseCode': 400,
-                'responseMessage': 'Enter the required fields!'
+                'responseMessage': 'Llenar campos requeridos!'
+                })
+        elif password != confirmpsswd:
+            return jsonify({
+                'responseCode': 400,
+                'responseMessage': 'Las contraseñas no coinciden.'
                 })
 
         con = mysql.connect()
@@ -258,6 +268,7 @@ def getSubsector():
         })
 
 @app.route('/listSubsectors')
+@login_required
 def listSubsectors():
     con = mysql.connect()
     cursor = con.cursor()
@@ -268,6 +279,7 @@ def listSubsectors():
     return render_template("listSubsectors.html", result=result)
 
 @app.route('/listServices/<idsubsector>')
+@login_required
 def listServices(idsubsector):
     con = mysql.connect()
     cursor = con.cursor()
@@ -279,6 +291,7 @@ def listServices(idsubsector):
     return render_template("listServices.html", result=result)
 
 @app.route('/ownerServices')
+@login_required
 def ownerServices():
     con = mysql.connect()
     cursor = con.cursor()
@@ -295,6 +308,7 @@ def error():
      return render_template("error.html")
 
 @app.route('/modal', methods=['GET', 'POST'])
+@login_required
 def sendmsg():
     if request.method == "POST":
         customer = session['user_id']
@@ -338,6 +352,7 @@ def sendmsg():
                 })
 
 @app.route('/modalRequest', methods=['GET', 'POST'])
+@login_required
 def sendrequest():
     if request.method == "POST":
         if 'requestCheck' in request.form:
@@ -375,6 +390,7 @@ def sendrequest():
                 })
 
 @app.route('/notificationOwner/<idservice>')
+@login_required
 def notificationOwner(idservice):
     con = mysql.connect()
     cursor = con.cursor()
@@ -385,6 +401,7 @@ def notificationOwner(idservice):
     return render_template("notificationOwner.html", result=result)
 
 @app.route('/notifications')
+@login_required
 def notifications():
     con = mysql.connect()
     cursor = con.cursor()
@@ -396,3 +413,19 @@ def notifications():
     deny = cursor.fetchall()
     
     return render_template("notifications.html", accept=accept, deny=deny)
+
+@app.route('/notificationsCustomer')
+@login_required
+def notificationsCustomer():
+    user = session['user_id']
+
+    con = mysql.connect()
+    cursor = con.cursor()
+
+    cursor.callproc('notification_GetAcceptedCustomerNotifications', str(user))
+    accept = cursor.fetchall()
+
+    cursor.callproc('notification_GetDeniedCustomerNotifications', str(user))
+    deny = cursor.fetchall()
+    
+    return render_template("notificationsCustomer.html", accept=accept, deny=deny)

@@ -1,19 +1,19 @@
 {% extends "layout.html" %} <!--  -->
 {% block title %}
-    Solicitudes
+    Respuestas a solicitudes
 {% endblock %}
 
 {% block main %}
 
-    <div class="container" style="margin-bottom: 10px;">
+    <div class="container" style="margin-bottom: 20px; margin-top: 40px;">
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                 </div>
                 <div class="col-sm-1">
                     <img src="../static/img/solicitud.png" class="img-fluid" alt="Responsive image" width="50px">
                 </div>
-                <div class="col-sm-1">
-                        <h3>Solicitudes:</h3>
+                <div class="col-lg-4">
+                    <h3>Respuestas a solicitudes:</h3>    
                 </div>
             </div>
         </div>
@@ -33,11 +33,11 @@
                             {% for row in accept %}
                                 <div class="card">
                                     <div class="card-header">
-                                    {{row[1]}}
+                                    Servicio solicitado: {{row[1]}}
                                     </div>
                                     <div class="card-body">
-                                    <h5 class="card-title">Mensaje: {{row[3]}}</h5>
-                                    <p class="card-text">Solicitado por: {{row[2]}}</p>
+                                    <h5 class="card-title">Tu mensaje fue: {{row[3]}}</h5>
+                                    <p class="card-text">Respuesta por parte del dueño del negocio: {{row[6]}}</p>
                                     </div>
                                 </div>
                                 <br>
@@ -48,7 +48,7 @@
                                 Lo sentimos!
                                 </div>
                                 <div class="card-body">
-                                <h5 class="card-title">Aún no cuentas con notificaciones en este servicio</h5>
+                                <h5 class="card-title">Aún no cuentas con notificaciones</h5>
                                 <p class="card-text"></p>
                                 </div>
                             </div>
@@ -61,11 +61,11 @@
                             {% for fila in deny %}
                                 <div class="card">
                                     <div class="card-header">
-                                    {{fila[1]}}
+                                    Servicio solicitado: {{fila[1]}}
                                     </div>
                                     <div class="card-body">
-                                    <h5 class="card-title">Mensaje: {{fila[3]}}</h5>
-                                    <p class="card-text">Solicitado por: {{fila[2]}}</p>
+                                    <h5 class="card-title">Tu mensaje fue: {{fila[3]}}</h5>
+                                    <p class="card-text">Respuesta por parte del dueño del negocio: {{fila[6]}}</p>
                                     </div>
                                 </div>
                                 <br>
@@ -76,7 +76,7 @@
                                 Lo sentimos!
                                 </div>
                                 <div class="card-body">
-                                <h5 class="card-title">Aún no cuentas con notificaciones en este servicio</h5>
+                                <h5 class="card-title">Aún no cuentas con notificaciones</h5>
                                 <p class="card-text"></p>
                                 </div>
                             </div>

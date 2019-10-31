@@ -5,7 +5,7 @@
 
 {% block main %}
 
-    <div class="row" style="margin-bottom: 20px;">
+    <div class="row" style="margin-bottom: 20px; margin-top: 50px;">
             <div class="col">
                 <h3>Solicita el servicio que necesites:</h3>
             </div>
@@ -16,7 +16,7 @@
 
     {% if result|length > 0 %}
         {% for row in result %}
-        <div class="card">
+        <div class="card text-center">
             <div class="card-header">
             Ubicación: {{row[4]}}
             </div>

@@ -50,7 +50,7 @@ BEGIN
 END$$
 
 DELIMITER $$
-CREATE PROCEDURE `notification_GetAcceptedNotifications`()
+CREATE PROCEDURE notification_GetAcceptedNotifications()
 BEGIN
 	SELECT n.idNotification, s.name, c.names, n.Message, n.isAccepted, n.Date, n.ResponseMessage, n.iduser_customer, n.idservice
     FROM notification AS n
@@ -64,7 +64,7 @@ BEGIN
 END$$
 
 DELIMITER $$
-CREATE PROCEDURE `notification_GetDeniedCustomerNotifications`(IN iduser_customer INT)
+CREATE PROCEDURE notification_GetDeniedCustomerNotifications(IN iduser_customer INT)
 BEGIN
 	SELECT n.idNotification, s.name, c.names, n.Message, n.isAccepted, n.Date, n.ResponseMessage, n.iduser_customer, n.idservice
     FROM notification AS n
@@ -240,28 +240,6 @@ rate INT)
 BEGIN
 INSERT INTO valoration (idservice, iduser_customer, comment, rate)
 VALUES (idservice, iduser_customer, comment, rate);
-END$$
-
-
-
-
-
-
-
-
-
-DELIMITER $$
-CREATE PROCEDURE `notification_GetAcceptedNotifications`()
-BEGIN
-	SELECT n.idNotification, s.name, c.names, n.Message, n.isAccepted, n.Date, n.ResponseMessage, n.iduser_customer, n.idservice
-    FROM notification AS n
-    INNER JOIN user_customer AS uc ON
-    uc.iduser_customer = n.iduser_customer
-    INNER JOIN customer AS c ON
-    uc.idcustomer = c.idcustomer
-    INNER JOIN service AS s ON
-    n.idservice = s.idservice
-    WHERE n.isAccepted = 1;
 END$$
 
 
